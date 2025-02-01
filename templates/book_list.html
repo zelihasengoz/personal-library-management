@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Book List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th> <!-- ID sütunu eklendi -->
+                <th>Title</th>
+                <th>Author</th>
+                <th>Year</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.id }}</td> <!-- ID değerini göster -->
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.year }}</td>
+                <td>
+                    <div class="action-buttons">
+                        <form action="/get_book" method="POST" style="display: inline;">
+                            <input type="hidden" name="id" value="{{ book.id }}">
+                            <button type="submit" class="get-btn">Get</button>
+                        </form>
+                        <form action="/delete_book" method="POST" style="display: inline;">
+                            <input type="hidden" name="id" value="{{ book.id }}">
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="home-links">
+        <a href="/">Go Back to Home</a>
+    </div>
+</body>
+</html>
